@@ -14,41 +14,6 @@
     }, {
       "target": {
         "owner": "SgtSwagrid",
-        "name": "scala-library-template"
-      }
-    }, {
-      "target": {
-        "owner": "SgtSwagrid",
-        "name": "scala-colours"
-      }
-    }, {
-      "target": {
-        "owner": "SgtSwagrid",
-        "name": "basis"
-      }
-    }, {
-      "target": {
-        "owner": "SgtSwagrid",
-        "name": "scalgebra"
-      }
-    }, {
-      "target": {
-        "owner": "SgtSwagrid",
-        "name": "abstract-nonsense"
-      }
-    }, {
-      "target": {
-        "owner": "SgtSwagrid",
-        "name": "asset-loader"
-      }
-    }, {
-      "target": {
-        "owner": "SgtSwagrid",
-        "name": "page-loader"
-      }
-    }, {
-      "target": {
-        "owner": "SgtSwagrid",
         "name": "fairmap"
       }
     }
