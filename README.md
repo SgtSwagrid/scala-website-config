@@ -44,4 +44,5 @@ In particular, and contra [LICENSE.md](LICENSE.md), you may remove the license t
 
 ## 👁️ See also
 
+- [Scala Website Template](https://github.com/SgtSwagrid/scala-website-template) is a full template which uses this configuration.
 - [Scala Config](https://github.com/SgtSwagrid/scala-config) is an upstream template for Scala 3 projects in general.
