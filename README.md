@@ -1,9 +1,6 @@
 <div align="center">
   <h1>⚙️ Scala Website Config</h1>
   <p>Common configuration for all of my Scala websites.</p>
-  <span>
-    <a href="https://alecdorrington.com/scala-website-config"><img src="https://img.shields.io/badge/docs-latest-blue.svg" alt="Documentation" /></a>
-  </span>
 </div>
 
 ## 👷 What's the workflow?
