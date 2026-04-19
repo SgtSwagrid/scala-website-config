@@ -1,8 +1,8 @@
 <div align="center">
-  <h1>⚙️ Scala Config</h1>
-  <p>The single source of truth for basic configuration across all of my <a href="https://www.scala-lang.org/">Scala 3</a> projects.</p>
+  <h1>⚙️ Scala Website Config</h1>
+  <p>The single source of truth for basic configuration across all of my Scala websites.</p>
   <span>
-    <a href="https://alecdorrington.com/scala-config"><img src="https://img.shields.io/badge/docs-latest-blue.svg" alt="Documentation" /></a>
+    <a href="https://alecdorrington.com/scala-website-config"><img src="https://img.shields.io/badge/docs-latest-blue.svg" alt="Documentation" /></a>
   </span>
 </div>
 
@@ -13,24 +13,8 @@ Updates to these files should be made _here_, not in any of the downstream repos
 
 ## 📋 What's included?
 
-### Continuous integration
-
-- Git settings including `.gitignore` and `.gitattributes`.
-- Config for [Scalafmt](https://scalameta.org/scalafmt/), the main [linter](https://en.wikipedia.org/wiki/Lint_(software)) of the Scala ecosystem.
-- GitHub [Actions](https://github.com/features/actions) workflows to verify build integrity.
-- [Scala Steward](https://github.com/scala-steward-org/scala-steward) integration for automatic dependency updates.
-
-### IDE configuration
-
-- Some config for [IntelliJ IDEA](https://www.jetbrains.com/idea/) and [Visual Studio Code](https://code.visualstudio.com/).
-  Including IDE config can be controversial, but it is sanitised and helps to enable a consistent development experience.
-- [Claude Code](https://claude.com/product/claude-code) integration with IntelliJ.
-- An environment definition for GitHub [Codespaces](https://github.com/features/codespaces).
-
-### Licensing
-
-- The [MIT](https://tlo.mit.edu/understand-ip/exploring-mit-open-source-license-comprehensive-guide) license,
-  which I tend to use by default as it is fairly permissive.
+- Everything from [Scala Config](https://github.com/SgtSwagrid/scala-config).
+- SBT plugins for [Scala.js](https://www.scala-js.org/).
 
 ## 🏗️ Where is this used?
 
@@ -40,6 +24,8 @@ The full list of projects that rely on this configuration is defined in [graph.j
 
 Only if you want to, but this exists mainly for my own convenience.
 I would, however, argue that these settings are reasonable defaults for most Scala 3 projects.
+
+More likely, if you're starting a new project, you'll want to use the downstream template [Scala Website Template](https://github.com/SgtSwagrid/scala-website-template).
 
 ## 🔨 How can this be used?
 
@@ -58,4 +44,4 @@ In particular, and contra [LICENSE.md](LICENSE.md), you may remove the license t
 
 ## 👁️ See also
 
-- [GitHub Config](https://github.com/SgtSwagrid/github-config) is an upstream template for GitHub projects in general.
+- [Scala Config](https://github.com/SgtSwagrid/scala-config) is an upstream template for Scala 3 projects in general.
