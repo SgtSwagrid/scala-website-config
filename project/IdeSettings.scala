@@ -1,9 +1,9 @@
-import sbt.*
-import sbt.Keys.*
-import sbtide.Keys.*
+import sbt._
+import sbt.Keys._
+import sbtide.Keys._
 
 /** Configuration for IntelliJ via SBT. */
-object IdeSettings extends AutoPlugin:
+object IdeSettings extends AutoPlugin {
 
   override def trigger = allRequirements
 
@@ -18,8 +18,9 @@ object IdeSettings extends AutoPlugin:
     ideExcludedDirectories := {
 
       // Excluded in any subdirectory:
-      val recursive = Seq("target", ".js", ".jvm").flatMap: name =>
-        (baseDirectory.value ** name).get()
+      val recursive = Seq("target", ".js", ".jvm").flatMap(name =>
+        (baseDirectory.value ** name).get,
+      )
 
       // Excluded at the root level only:
       val rootOnly = Seq(
@@ -70,3 +71,4 @@ object IdeSettings extends AutoPlugin:
       ideExcludedDirectories,
     ),
   )
+}
