@@ -20,7 +20,10 @@
       "target": {
         "owner": "SgtSwagrid",
         "name": "Themis"
-      }
+      },
+      "ignore": [
+        "docs/DEPLOYMENT.md"
+      ]
     }, {
       "target": {
         "owner": "SgtSwagrid",

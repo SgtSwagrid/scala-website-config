@@ -12,6 +12,7 @@ Updates to these files should be made _here_, not in any of the downstream repos
 
 - Everything from [Scala Config](https://github.com/SgtSwagrid/scala-config).
 - SBT plugins for [Scala.js](https://www.scala-js.org/).
+- Automatic deployment: a [Dockerfile](Dockerfile), a [Deploy workflow](.github/workflows/deploy.yml) that runs the image on a server of your own behind [Caddy](https://caddyserver.com/) after CI passes on `main`, and the [server-side setup](deploy). See [DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## 🏗️ Where is this used?
 
