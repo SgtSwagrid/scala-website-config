@@ -94,14 +94,19 @@ docker logs --tail 20 proxy
 ### Memory
 
 Each application's JVM sizes its heap against whatever memory it can see, so two of them on one
-small server will both try to take most of it. Give each a limit in its `deploy/compose.yml`:
+small server will both try to take most of it and the kernel will decide which dies. Set the
+`MEM_LIMIT` repository variable on each to divide the server up:
 
-```yaml
-    mem_limit: 768m
-```
+| Kind     | Name        | Value                                                            |
+|----------|-------------|------------------------------------------------------------------|
+| Variable | `MEM_LIMIT` | A Docker memory limit, such as `768m`. Defaults to `0`, no limit. |
 
-A server with 2 GB of memory comfortably runs two applications limited this way, and neither runs
-well without a limit.
+A server with 2 GB of memory comfortably runs two applications at `768m` apiece, leaving room for
+Caddy and the system. Leave it unset on a server running one application.
+
+Do not add the limit to `deploy/compose.yml` directly: that file is synchronised from
+[Scala Website Config](https://github.com/SgtSwagrid/scala-website-config) and local changes to it
+are overwritten.
 
 ## Application environment
 
