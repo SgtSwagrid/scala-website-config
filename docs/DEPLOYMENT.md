@@ -69,8 +69,9 @@ To add a second application to a server that already has one, in this order. The
 holds ports 80 and 443 until step 3, and the front door cannot start until it lets go, so it is
 down for the couple of minutes between steps 3 and 5.
 
-1. Set `DOMAIN` on both repositories, and point a DNS `A` record for each at the server. Without a
-   domain a site answers on `:80` for any address, which only one application can do.
+1. Set `DOMAIN` on both repositories, and point a DNS `A` record for each at the server. At most
+   one application on a server may go without a domain: a site with none answers on `:80` for any
+   address, and two of those are an `ambiguous site definition` that Caddy refuses to load.
 2. Merge the configuration update in the older repository, but do not deploy it yet.
 3. Stop the old application on the server, which frees the ports:
 

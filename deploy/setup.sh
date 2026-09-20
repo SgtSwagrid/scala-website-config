@@ -58,16 +58,6 @@ cat > "$proxy/Caddyfile" <<'CADDYFILE'
 import /etc/caddy/sites/*.caddy
 CADDYFILE
 
-# Caddy refuses to start if an import matches nothing, so leave something there
-# for it to find. A snippet that nobody imports has no effect.
-if [ ! -e "$proxy/sites/00-none.caddy" ]; then
-  printf '(none) {
-	respond 404
-}
-' > "$proxy/sites/00-none.caddy"
-  chown "$user:$user" "$proxy/sites/00-none.caddy"
-fi
-
 cat > "$proxy/compose.yml" <<'COMPOSE'
 # The shared front door. Started once by setup.sh; applications never touch it.
 services:
