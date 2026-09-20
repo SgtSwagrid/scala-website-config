@@ -7,7 +7,9 @@ Every push to `main` that passes CI is deployed to one Linux server:
 2. It copies [deploy/](../deploy) to the server over SSH, and there `docker compose` pulls the new
    image and replaces the running container.
 3. [Caddy](https://caddyserver.com/) sits in front of the application. It serves HTTPS for your
-   domain, and gets and renews the certificate on its own.
+   domain, and gets and renews the certificate on its own. One Caddy serves the whole server, so
+   several applications can share one machine; see [Several applications on one
+   server](#several-applications-on-one-server).
 4. The workflow waits for `/health` to answer. If it doesn't, the workflow fails and prints the
    server's logs.
 
@@ -53,6 +55,53 @@ month. The image is built on GitHub, so the server never compiles anything.
 The site must have a host of its own, such as `app.example.com`. A path under another site, such as
 `example.com/app`, won't work: every URL the application produces starts from `/`.
 
+## Several applications on one server
+
+Only one process can hold ports 80 and 443, so the applications do not each bring their own Caddy.
+`setup.sh` puts a single one at `/srv/proxy`, and every deployment installs its own site into
+`/srv/proxy/sites/<repo>.caddy` and asks Caddy to read it.
+
+Nothing is shared but the front door itself. No application edits another's configuration, none
+knows the others exist, and a site that will not parse is refused by `caddy reload`, so a broken
+deployment leaves every other site running on the last configuration that worked.
+
+To add a second application to a server that already has one, in this order. The old application
+holds ports 80 and 443 until step 3, and the front door cannot start until it lets go, so it is
+down for the couple of minutes between steps 3 and 5.
+
+1. Set `DOMAIN` on both repositories, and point a DNS `A` record for each at the server. Without a
+   domain a site answers on `:80` for any address, which only one application can do.
+2. Merge the configuration update in the older repository, but do not deploy it yet.
+3. Stop the old application on the server, which frees the ports:
+
+   ```bash
+   cd ~/<old-repo> && docker compose down
+   ```
+4. Copy `setup.sh` over and run it as root. It creates the `web` network and starts the front door.
+5. Deploy the old application: **Actions → Deploy → Run workflow**. It comes back without a Caddy
+   of its own, installs its site into the front door, and is served again.
+6. Deploy the new application the same way.
+
+To check the front door afterwards:
+
+```bash
+docker exec proxy caddy validate --config /etc/caddy/Caddyfile
+ls /srv/proxy/sites/
+docker logs --tail 20 proxy
+```
+
+### Memory
+
+Each application's JVM sizes its heap against whatever memory it can see, so two of them on one
+small server will both try to take most of it. Give each a limit in its `deploy/compose.yml`:
+
+```yaml
+    mem_limit: 768m
+```
+
+A server with 2 GB of memory comfortably runs two applications limited this way, and neither runs
+well without a limit.
+
 ## Application environment
 
 `APP_ENV` becomes the container's environment. Anything the server reads from its environment,
@@ -77,6 +126,13 @@ docker compose start app
 ```
 
 To start afresh, run `docker compose down` and then `docker volume rm <repo>_data`.
+
+Removing an application altogether also means deleting its site from the front door:
+
+```bash
+rm /srv/proxy/sites/<repo>.caddy
+docker exec proxy caddy reload --config /etc/caddy/Caddyfile
+```
 
 ## Running the image locally
 
