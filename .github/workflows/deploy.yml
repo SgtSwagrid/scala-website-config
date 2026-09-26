@@ -126,7 +126,7 @@ jobs:
       contents: read
       packages: read
     environment:
-      name: production
+      name: Production
       url: ${{ vars.DOMAIN && format('https://{0}', vars.DOMAIN) || format('http://{0}', vars.DEPLOY_HOST) }}
     env:
       TARGET: ${{ vars.DEPLOY_USER || 'deploy' }}@${{ vars.DEPLOY_HOST }}
