@@ -124,12 +124,12 @@ Variables:
   DEPLOY_USER = $user
   DOMAIN      = (optional) a domain whose DNS A record points at $host
 
+  KNOWN_HOSTS =
+$(awk -v host="$host" '{ print host, $1, $2 }' /etc/ssh/ssh_host_*_key.pub)
+
 Secrets:
   DEPLOY_SSH_KEY =
 $(cat "$key")
-
-  DEPLOY_KNOWN_HOSTS =
-$(awk -v host="$host" '{ print host, $1, $2 }' /etc/ssh/ssh_host_*_key.pub)
 
   APP_ENV = (optional) the application's environment, one NAME=value per line
 

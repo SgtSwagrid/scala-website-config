@@ -145,11 +145,17 @@ jobs:
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
+      # The host keys are public, so they are a variable rather than a secret.
+      # Without them SSH would refuse the server with a less helpful message.
       - name: Set up SSH
         env:
           KEY: ${{ secrets.DEPLOY_SSH_KEY }}
-          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+          KNOWN_HOSTS: ${{ vars.KNOWN_HOSTS }}
         run: |
+          if [ -z "$KNOWN_HOSTS" ]; then
+            echo "::error::Set the KNOWN_HOSTS variable to the host keys printed by setup.sh."
+            exit 1
+          fi
           install -d -m 700 ~/.ssh
           printf '%s\n' "$KEY" > ~/.ssh/id_ed25519
           printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
