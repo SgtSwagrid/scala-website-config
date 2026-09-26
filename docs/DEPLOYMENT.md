@@ -13,7 +13,7 @@ Every push to `main` that passes CI is deployed to one Linux server:
 4. The workflow waits for `/health` to answer. If it doesn't, the workflow fails and prints the
    server's logs.
 
-Nothing happens until the `DEPLOY_HOST` variable is set, so a repository without a server just
+Nothing happens until the `HOSTNAME` variable is set, so a repository without a server just
 skips the workflow. You can also run it by hand: **Actions → Deploy → Run workflow**.
 
 ## Setting up a server
@@ -36,12 +36,12 @@ month. The image is built on GitHub, so the server never compiles anything.
 
    | Kind     | Name             | Value                                                                |
    |----------|------------------|----------------------------------------------------------------------|
-   | Variable | `DEPLOY_HOST`    | The server's IP address or host name.                                |
+   | Variable | `HOSTNAME`       | The server's IP address or host name.                                |
    | Variable | `DEPLOY_USER`    | `deploy` (the default).                                              |
    | Variable | `DOMAIN`         | Optional. The site's domain, e.g. `app.example.com`.                 |
    | Variable | `KNOWN_HOSTS`    | The host keys printed by `setup.sh`. They pin the server's identity. |
    | Secret   | `DEPLOY_SSH_KEY` | The private key printed by `setup.sh`.                               |
-   | Secret   | `APP_ENV`        | Optional. The application's environment, one `NAME=value` per line.  |
+   | Secret   | `ENVIRONMENT`    | Optional. The application's environment, one `NAME=value` per line.  |
 
    The host keys are public, as the server shows them to anyone who connects, so they are a
    variable: what matters is that nobody can change them, and a variable is as safe from that.
@@ -119,7 +119,7 @@ That prints the private key for `DEPLOY_SSH_KEY`. It is never written to the ser
 comment on the key is what keeps `setup.sh` and the snippet above from treading on each other.
 
 `KNOWN_HOSTS` is the same for every repository on the server. `<host>` must be exactly the
-value in `DEPLOY_HOST`, since that is the name the workflow connects to:
+value in `HOSTNAME`, since that is the name the workflow connects to:
 
 ```bash
 awk -v host='<host>' '{ print host, $1, $2 }' /etc/ssh/ssh_host_*_key.pub
@@ -144,7 +144,7 @@ are overwritten.
 
 ## Application environment
 
-`APP_ENV` becomes the container's environment. Anything the server reads from its environment,
+`ENVIRONMENT` becomes the container's environment. Anything the server reads from its environment,
 such as API keys, belongs there, for example:
 
 ```

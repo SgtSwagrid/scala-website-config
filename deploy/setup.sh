@@ -101,7 +101,7 @@ In the repository on GitHub, under 'Settings → Secrets and variables → Actio
 
 Variables:
 
-  DEPLOY_HOST = $host
+  HOSTNAME    = $host
   DEPLOY_USER = $user
   DOMAIN      = (optional) a domain whose DNS A record points at $host
 
@@ -113,7 +113,7 @@ Secrets:
   DEPLOY_SSH_KEY =
 $(cat "$key")
 
-  APP_ENV = The application's environment, as one 'KEY=VALUE'-pair per line (optional).
+  ENVIRONMENT = The application's environment, as one 'KEY=VALUE'-pair per line (optional).
 
 The private key is not stored on the server, so be sure to save it now.
 Running this script again will generate a fresh key, rendering the old one inactive.
