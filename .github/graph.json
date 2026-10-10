@@ -22,7 +22,8 @@
         "name": "Themis"
       },
       "ignore": [
-        "docs/DEPLOYMENT.md"
+        "docs/DEPLOYMENT.md",
+        "LICENSE.md"
       ]
     }, {
       "target": {
