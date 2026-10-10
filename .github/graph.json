@@ -19,7 +19,7 @@
     }, {
       "target": {
         "owner": "SgtSwagrid",
-        "name": "Themis"
+        "name": "themis"
       },
       "ignore": [
         "docs/DEPLOYMENT.md",
@@ -28,7 +28,7 @@
     }, {
       "target": {
         "owner": "SgtSwagrid",
-        "name": "Kairos"
+        "name": "kairos"
       }
     }
   ]
