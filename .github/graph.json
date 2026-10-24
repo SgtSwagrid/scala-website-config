@@ -23,7 +23,8 @@
       },
       "ignore": [
         "docs/DEPLOYMENT.md",
-        "LICENSE.md"
+        "LICENSE.md",
+        ".scala-steward.conf"
       ]
     }, {
       "target": {
